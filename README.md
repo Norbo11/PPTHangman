@@ -21,11 +21,10 @@ This is a simple text-based Hangman game created during a Personal Programming T
 
 # Main Collaborators
 
-Akhtar Syed
-Victor-Gabriel Apostol
-Yoram Boccia
-Ossama Chaib
-Quok Chong
-Dhru Devalia
-Pablo Gamito
-Hadrian Lim Wei Heng
+- Akhtar Syed
+- Victor-Gabriel Apostol
+- Yoram Boccia
+- Ossama Chaib
+- Quok Chong
+- Dhru Devalia Pablo Gamito
+- Hadrian Lim Wei Heng
