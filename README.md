@@ -25,6 +25,7 @@ This is a simple text-based Hangman game created during a Personal Programming T
 - Victor-Gabriel Apostol
 - Yoram Boccia
 - Ossama Chaib
-- Quok Chong
-- Dhru Devalia Pablo Gamito
+- Justin Chong
+- Dhru Devalia
+- Pablo Gamito
 - Hadrian Lim Wei Heng
