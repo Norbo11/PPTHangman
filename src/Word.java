@@ -1,29 +1,23 @@
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Word {
+
     private Set<Character> guessedChars;
     private String originalWord;
 
-    public Word(String originalWord) {
+    Word(String originalWord) {
         this.originalWord = originalWord;
         guessedChars = new HashSet<>();
     }
 
-    private static Set<Character> unguessableChars = new HashSet<>();
-    {
-        unguessableChars.add(' ');
-        unguessableChars.add('"');
-        unguessableChars.add('.');
-        unguessableChars.add(',');
-        unguessableChars.add('@');
-    }
 
     public GuessResult guess(String guess) {
         if (guess.length() == 1) {
             char c = guess.charAt(0);
 
-            if (unguessableChars.contains(c)) {
+            if (!Character.isLetter(c)) {
                 return GuessResult.UNGUESSABLE_CHAR;
             }
 
@@ -34,19 +28,12 @@ public class Word {
             guessedChars.add(c);
 
             if (originalWord.contains(c + "")) {
-                Set<Character> allChars = new HashSet<>(guessedChars);
-                allChars.addAll(unguessableChars);
-
-                for (int i = 0; i < originalWord.length(); i++) {
-                    if (!allChars.contains(originalWord.charAt(i))) {
-                        return GuessResult.CORRECT_GUESS;
-                    }
+                if (originalWord.chars().mapToObj(i -> (char) i).filter(Character::isLetter)
+                    .collect(Collectors.toSet()).equals(guessedChars)) {
+                    return GuessResult.COMPLETED_WORD;
                 }
-
-                return GuessResult.COMPLETED_WORD;
+                return GuessResult.CORRECT_GUESS;
             }
-
-            return GuessResult.INCORRECT_GUESS;
         }
 
         if (originalWord.equals(guess)) {
@@ -59,19 +46,8 @@ public class Word {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-
-        for (int i = 0; i < originalWord.length(); i++) {
-            char c = originalWord.charAt(i);
-
-            if (unguessableChars.contains(c) ||
-                guessedChars.contains(c)) {
-                builder.append(c);
-            } else {
-                builder.append("_");
-            }
-
-        }
-
+        originalWord.chars().mapToObj(i -> (char) i).map(c -> !Character.isLetter(c)
+            || guessedChars.contains(c) ? c: '_').forEach(builder::append);
         return builder.toString();
     }
 
