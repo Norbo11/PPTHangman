@@ -19,7 +19,7 @@ public class Word {
 
   public GuessResult guess(String guess) {
     if (guess.length() == 1) {
-      char c = guess.charAt(0);
+      char c = Character.toLowerCase(guess.charAt(0));
 
       if (!Character.isLetter(c)) {
         return GuessResult.UNGUESSABLE_CHAR;
@@ -32,8 +32,8 @@ public class Word {
       guessedChars.add(c);
 
       if (originalWord.contains(c + "") || originalWord.contains(Character.toUpperCase(c) + "")) {
-        if (originalWord.chars().mapToObj(i -> Character.toLowerCase((char) i))
-            .filter(Character::isLetter).collect(Collectors.toSet()).equals(guessedChars)){
+        if (guessedChars.containsAll(originalWord.chars().mapToObj(i -> Character.toLowerCase((char) i))
+            .filter(Character::isLetter).collect(Collectors.toSet()))){
           return GuessResult.COMPLETED_WORD;
         }
         return GuessResult.CORRECT_GUESS;

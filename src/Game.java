@@ -14,9 +14,22 @@ public class Game {
     System.out.println("Welcome to PPTHangman!");
     System.out.println("Please enter the number of players:");
 
-    Scanner scanner = new Scanner(System.in);
+    Scanner scanner;
+    int numPlayers;
+    while (true){
+      scanner = new Scanner(System.in);
+      numPlayers = Integer.parseInt(scanner.nextLine());
+      if (numPlayers > 1){
+        break;
+      } else if (numPlayers == 1) {
+        System.out.println("You cannot play alone! Please enter a number greater than 1:");
+      } else {
+        System.out.println("Please enter a number greater than 1:");
+      }
+    }
 
-    int numPlayers = Integer.parseInt(scanner.nextLine());
+
+
     List<Player> allPlayers = new ArrayList<>();
 
     for (int i = 0; i < numPlayers; i++) {
@@ -56,5 +69,17 @@ public class Game {
       System.out.println("Current Standings: ");
       System.out.println(leaderboardToSet(allPlayers));
     }
+    System.out.println("Thank you for playing! These are our top players:");
+    int topScore = Integer.MIN_VALUE;
+    List<Player> topPlayers = new ArrayList<>();
+    for (Player p: allPlayers) {
+      if (Math.max(p.getScore(), topScore) != topScore){
+        topPlayers.add(p);
+        topScore = p.getScore();
+      }
+    }
+    topPlayers.forEach(p -> System.out.print(p + ", "));
+    System.out.println("with " + topScore + " points!");
+    System.out.println("Thanks for playing!");
   }
 }
