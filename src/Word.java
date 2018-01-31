@@ -40,7 +40,9 @@ public class Word {
       }
     }
 
-    if (originalWord.equals(guess)) {
+    if (originalWord.toLowerCase().equals(guess.toLowerCase())) {
+      guessedChars.addAll(guess.toLowerCase().chars()
+          .mapToObj(i->(char)i).collect(Collectors.toList()));
       return GuessResult.COMPLETED_WORD;
     }
 
