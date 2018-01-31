@@ -15,6 +15,10 @@ public class Player {
     score -= n;
   }
 
+  public Integer getScore(){
+    return score;
+  }
+
   @Override
   public String toString() {
     return name;

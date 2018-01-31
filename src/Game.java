@@ -1,8 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Game {
+
+  public static Map<String, Integer> leaderboardToSet(List<Player> allPlayers){
+    return allPlayers.stream().collect(Collectors.toMap(Player::toString, Player::getScore));
+  }
 
   public static void main(String[] args) {
     System.out.println("Welcome to PPTHangman!");
@@ -40,7 +46,6 @@ public class Game {
         System.out.println("Please enter a word with at least 1 letter:");
       }
 
-
       List<Player> players = new ArrayList<>(allPlayers);
       players.remove(leader);
 
@@ -48,6 +53,8 @@ public class Game {
       session.play();
 
       currentLeaderIndex = (currentLeaderIndex + 1) % allPlayers.size();
+      System.out.println("Current Standings: ");
+      System.out.println(leaderboardToSet(allPlayers));
     }
   }
 }
