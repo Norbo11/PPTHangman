@@ -24,7 +24,7 @@ public class Game {
       System.out.println("Do you wish to start a new game? Y/N");
       String answer = scanner.nextLine();
 
-      if (answer.startsWith("N")) {
+      if (answer.startsWith("N") || answer.startsWith("n")) {
         break;
       }
 

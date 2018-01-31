@@ -31,9 +31,9 @@ public class Word {
 
       guessedChars.add(c);
 
-      if (originalWord.contains(c + "")) {
-        if (originalWord.chars().mapToObj(i -> (char) i).filter(Character::isLetter)
-            .collect(Collectors.toSet()).equals(guessedChars)) {
+      if (originalWord.contains(c + "") || originalWord.contains(Character.toUpperCase(c) + "")) {
+        if (originalWord.chars().mapToObj(i -> Character.toLowerCase((char) i))
+            .filter(Character::isLetter).collect(Collectors.toSet()).equals(guessedChars)){
           return GuessResult.COMPLETED_WORD;
         }
         return GuessResult.CORRECT_GUESS;
@@ -51,7 +51,7 @@ public class Word {
   public String toString() {
     StringBuilder builder = new StringBuilder();
     originalWord.chars().mapToObj(i -> (char) i).map(c -> !Character.isLetter(c)
-        || guessedChars.contains(c) ? c : '_').forEach(builder::append);
+        || guessedChars.contains(Character.toLowerCase(c)) ? c : '_').forEach(builder::append);
     return builder.toString();
   }
 
