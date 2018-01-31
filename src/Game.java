@@ -33,8 +33,18 @@ public class Game {
     List<Player> allPlayers = new ArrayList<>();
 
     for (int i = 0; i < numPlayers; i++) {
-      System.out.println("Please enter the name of the " + (i + 1) + "th player");
-      allPlayers.add(new Player(scanner.nextLine()));
+      System.out.println("Please enter the name of player " + (i + 1) + ":");
+      String playerName;
+      while (true){
+        playerName = scanner.nextLine();
+        if (!allPlayers.stream().map(Object::toString)
+            .collect(Collectors.toList()).contains(playerName)){
+          break;
+        }
+        System.out.println("Please enter another name, "+playerName+" has already been taken:");
+      }
+
+      allPlayers.add(new Player(playerName));
     }
 
     int currentLeaderIndex = 0;
@@ -70,10 +80,10 @@ public class Game {
       System.out.println(leaderboardToSet(allPlayers));
     }
     System.out.println("Thank you for playing! These are our top players:");
-    int topScore = Integer.MIN_VALUE;
+    int topScore = allPlayers.get(0).getScore();
     List<Player> topPlayers = new ArrayList<>();
     for (Player p: allPlayers) {
-      if (Math.max(p.getScore(), topScore) != topScore){
+      if (p.getScore() >= topScore){
         topPlayers.add(p);
         topScore = p.getScore();
       }
