@@ -18,6 +18,9 @@ public class Word {
 
 
   public GuessResult guess(String guess) {
+    if (guess.length() == 0) {
+      return GuessResult.UNGUESSABLE_CHAR;
+    }
     if (guess.length() == 1) {
       char c = Character.toLowerCase(guess.charAt(0));
 

@@ -5,11 +5,54 @@ public class Session {
 
   private static final int MAX_LIVES = 7;
 
+  private String[] indexLeaderBoard = new String[]{
+      "\n\n\n\n\n\n          ___________",
+      "               |\n" +
+      "               |\n" +
+      "               |\n" +
+      "               |\n" +
+      "               |\n" +
+      "               |\n" +
+      "          _____|_____ ",
+      "                _____     \n" +
+      "               |          \n" +
+      "               |          \n" +
+      "               |          \n" +
+      "               |          \n" +
+      "          _____|______    ",
+      "                _____     \n" +
+      "               |     |    \n" +
+      "               |     O    \n" +
+      "               |          \n" +
+      "               |          \n" +
+      "          _____|______      ",
+      "                _____     \n" +
+      "               |     |    \n" +
+      "               |     O    \n" +
+      "               |     |    \n" +
+      "               |          \n" +
+      "          _____|______      ",
+      "                _____     \n" +
+      "               |     |    \n" +
+      "               |     O    \n" +
+      "               |    \\|/  \n" +
+      "               |          \n" +
+      "          _____|______      ",
+      "                _____     \n" +
+      "               |     |    \n" +
+      "               |     O    \n" +
+      "               |    \\|/  \n" +
+      "               |     |    \n" +
+      "               |    / \\   \n" +
+      "          _____|______      "
+      };
+  private String leaderBoard;
   private List<Player> players;
   private int lives;
   private Word word;
   private Player leader;
   private Scanner input;
+  private int index;
 
   public Session(Scanner input, List<Player> players, Player leader, Word word, int lives) {
     this.lives = lives;
@@ -42,6 +85,7 @@ public class Session {
           case INCORRECT_GUESS:
             lives--;
             System.out.println("Incorrect guess, lose a live");
+            leaderBoard = updateLeaderBoard();
             break guessLoop;
           case UNGUESSABLE_CHAR:
             System.out.println("Character cannot be guessed, please pick another");
@@ -61,12 +105,24 @@ public class Session {
       }
 
       System.out.println(word);
+      System.out.println("LeaderBoard:");
+      System.out.println(leaderBoard);
+
       currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
 
     System.out.println("No lives left, round lost");
+    System.out.println(word);
     leader.incrementScore(10);
   }
 
-
+  private String updateLeaderBoard() {
+    StringBuilder leaderBoard = new StringBuilder();
+    if (lives <= 7) {
+      leaderBoard.append(indexLeaderBoard[index]);
+      index++;
+      return leaderBoard.toString();
+    }
+    return "";
+  }
 }
