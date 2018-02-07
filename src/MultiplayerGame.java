@@ -38,9 +38,11 @@ public class MultiplayerGame {
     }
     checkReady();
   }
+
   public void checkReady() {
     for (int i = 0; i < numPlayers; i++) {
       if (players[i] == null) {
+        broadcast("Waiting for " + numPlayers + " more players to join");
         return;
       }
     }
@@ -100,9 +102,6 @@ public class MultiplayerGame {
   }
 
   public void makeGuess(String name, String guess) {
-    if (state != GameState.GUESSING_WORD) {
-      return;
-    }
     broadcast(name + " just guessed: " + guess);
     switch (word.guess(guess)) {
       case CORRECT_GUESS:
